@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require 'rest_in_place'
-//= require jquery
 //= require bootstrap-sprockets
+//= require 'rest_in_place'
+//= require twitter/typeahead
 //= require_tree .

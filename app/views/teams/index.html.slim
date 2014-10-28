@@ -1,0 +1,27 @@
+h3 Teams
+- if @teams.empty?
+  h5 There are currently no Raid teams
+- else
+  table.table.table-condensed.table-hover.rip#team-table
+    thead
+      tr
+        th Name
+        th Shorthand
+        th Members
+        th Actions
+    tbody
+      - @teams.each do |t|
+        tr data-object="team" data-url="/teams/#{t.id}"
+          td.rest-in-place data-attribute="name" = t.name
+          td.rest-in-place data-attribute="shorthand" = t.shorthand
+          td.rest-in-place = t.characters.count
+          td = link_to 'Delete', t, method: :delete,
+            data: { confirm: "Are you sure you want to delete #{t.shorthand}?\n \
+              This action can not be undone"}
+
+h5 Add Raiding Team
+= simple_form_for @team,
+  wrapper: :inline_form,
+  html: { class: 'form-inline' } do |f|
+  = f.input :name, placeholder: "Team Name"
+  = f.i

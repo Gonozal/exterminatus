@@ -16,6 +16,13 @@ gem 'autoprefixer-rails'
 # Twitters Bootstrap powered by SCSS
 gem 'bootstrap-sass'
 
+gem 'twitter-typeahead-rails'
+
+# Layout helper for e.g. bootstrap
+group :development do
+  gem 'rails_layout'
+end
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
@@ -23,20 +30,23 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+gem 'jquery-turbolinks'
+gem 'turbolinks'
+
 # Slim Template engine
 gem 'slim'
+gem 'slim-rails'
 ##############################################
 # end Stylesheets, JS, Templating Engines
 ##############################################
 
 # Form Builders
-gem 'simple_form'
+gem 'simple_form', '3.1.0.rc2'
 
 
 
 # Javascript Runetimes
 gem "execjs"
-gem 'therubyracer'
 
 
 # Recurring Events
@@ -70,6 +80,7 @@ gem 'bcrypt', '~> 3.1.7hjjk'
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
 gem 'rspec-rails',group: [:test, :development]
+gem 'ruby-lint', group: [:development]
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'

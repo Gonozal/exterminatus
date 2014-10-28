@@ -1,0 +1,31 @@
+h3 Characters
+- unless @characters.empty?
+  table.table.table-condensed.table-hover.rip#character-table
+    thead
+      tr
+        th Name
+        th Class
+        th Role
+        th Raid Team
+        th Actions
+    tbody
+      - @characters.each do |c|
+        tr data-object="character" data-url="/characters/#{c.id}"
+          td.rest-in-place data-attribute="name" = c.name
+          td.rest-in-place data-attribute="klass" = c.klass
+          td.rest-in-place data-attribute="role" = c.role
+          td.rest-in-place.rip-teams data-attribute="team_shorthand"
+            = c.team.shorthand unless c.team.blank?
+          td = link_to 'Delete', c, method: :delete,
+            data: { confirm: "Are you sure you want to delete #{c.name}?\n \
+              This action can not be undone"}
+
+
+= simple_form_for @character,
+  wrapper: :inline_form,
+  html: { class: 'form-inline' } do |f|
+  = f.input :name, placeholder: "Character Name"
+  = f.input :klass, placeholder: "Class"
+  = f.input :role, placeholder: "Role"
+  = f.association :team
+  = f.button :submit, text: "Add Character"
