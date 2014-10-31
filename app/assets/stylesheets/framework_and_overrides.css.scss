@@ -68,6 +68,16 @@ table.rip {
   }
 }
 
+
+#events-table {
+  tr td:first-child {
+    width: 25%;
+  }
+  tr td {
+    width: 15%;
+  }
+}
+
 #team-table {
   tr td:first-child {
     width: 35%;

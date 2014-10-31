@@ -1,0 +1,37 @@
+h3 Events
+- if @events.empty?
+  h5 There are currently no past or future event
+- else
+  table.table.table-condensed.table-hover.rip#events-table
+    thead
+      tr
+        th Name
+        th Date
+        th Starting Date
+        th End Date
+        th Type
+        th Actions
+    tbody
+      - @events.each do |e|
+        tr data-object="event" data-url="/events/#{e.id}"
+          td.rest-in-place data-attribute="name" = e.name
+          td.rest-in-place data-attribute="date" = e.date_str
+          td.rest-in-place data-attribute="start_date" = e.start_date_str
+          td.rest-in-place data-attribute="end_date" = e.end_date_str
+          td.rest-in-place data-attribute="type_string" = e.type_string
+          td = link_to 'Delete', e, method: :delete,
+            data: { confirm: "Are you sure you want to delete #{e.name}?\n \
+              This action can not be undone"}
+
+h5 Add Event
+- date_options = { as: :string, input_html: { class: 'datepicker' } }
+= simple_form_for @event,
+  wrapper: :inline_form,
+  html: { class: 'form-inline' } do |f|
+  = f.input :name, placeholder: "Event Name"
+  = f.input :date, placeholder: "Event Date", **date_options
+  = f.input :start_date, placeholder: "Starting Date", **date_options
+  = f.input :end_date, placeholder: "End Date", **date_options
+  = f.input :event_type do
+    = f.select :event_type, (0..2).map{ |i| [EVENT_TYPES[i], i]}, {}, { class: "required form-control"}
+  = f.button :submit, text: "Add Team"

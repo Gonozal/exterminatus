@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027210936) do
+ActiveRecord::Schema.define(version: 20141031184230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "character_events", force: true do |t|
+    t.integer  "character_id"
+    t.integer  "computed_event_id"
+    t.integer  "status",            default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "characters", force: true do |t|
     t.string   "name"
@@ -25,9 +33,23 @@ ActiveRecord::Schema.define(version: 20141027210936) do
     t.datetime "updated_at"
   end
 
-  create_table "events", force: true do |t|
+  create_table "computed_events", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "date"
+    t.string   "identifier"
+    t.integer  "event_id"
+  end
+
+  create_table "events", force: true do |t|
+    t.string   "name"
+    t.date     "date"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "event_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "weekday"
   end
 
   create_table "teams", force: true do |t|

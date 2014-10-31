@@ -8,7 +8,7 @@ class CharactersController < ApplicationController
     @characters = Character.all
     @character = Character.new(character_params)
     if @character.save
-      render action: :index
+      redirect_to action: :index
     else
       render action: :index
     end
@@ -17,7 +17,7 @@ class CharactersController < ApplicationController
   def destroy
     @character = Character.find(params[:id])
     @character.destroy
-    redirect_to characters_path
+    redirect_to action: :index
   end
 
   def update

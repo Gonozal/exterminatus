@@ -16,6 +16,11 @@ Rails.application.routes.draw do
 
   resources :characters
   resources :teams
+  resources :events
+  resources :computed_events
+
+  resources :character_events, only: [:index]
+  put '/character_events/:c_id/:e_id', to: 'character_events#update'
 
   root 'characters#index'
   # Example resource route with options:

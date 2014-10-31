@@ -24,4 +24,5 @@ h5 Add Raiding Team
   wrapper: :inline_form,
   html: { class: 'form-inline' } do |f|
   = f.input :name, placeholder: "Team Name"
-  = f.i
+  = f.input :shorthand, placeholder: "Shorthand"
+  = f.button :submit, text: "Add Team"

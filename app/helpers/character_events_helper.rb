@@ -1,0 +1,2 @@
+module CharacterEventsHelper
+end

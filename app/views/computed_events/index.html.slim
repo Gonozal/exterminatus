@@ -1,0 +1,42 @@
+h3 Upcoming Events
+// hidden div we'll be using for our select form
+.hidden#status-select
+  select.select.optional
+    - EVENT_STATUS.size.times do |i|
+      option value=i = EVENT_STATUS[i]
+
+- if @characters.empty? or (@last_events + @next_events).compact.empty?
+  h5 There are currently no events scheduled
+- else
+  table.table.table-condensed.table-hover.rip#upcoming-events-table
+    thead
+      tr
+        th Name
+        th Class
+        th Role
+        th Team
+        - @last_events.each do |e|
+          th
+            span.past.event.event-weekday = Date::DAYNAMES[e.date.wday]
+            span.past.event.event-date = e.date.strftime(Event.format)
+            span.past.event.event-name = e.event.name
+        - @next_events.each do |e|
+          th
+            span.event.event-weekday = Date::DAYNAMES[e.date.wday]
+            span.event.event-date = e.date.strftime(Event.format)
+            span.event.event-name = e.event.name
+    tbody
+      - @characters.each do |c|
+        tr data-object = "character_event"
+          td.char-name = c.name
+          td.char = c.klass
+          td.char = c.role
+          td.char = c.team.shorthand if c.team.present?
+          - (@last_events + @next_events).each do |e|
+            - ce = c.signups e.id
+            - if ce.computed_event.date < Date.today
+              td class=ce.signup_css = ce.signup
+            - else
+              td [data-attribute="status"
+                data-url="character_events/#{c.id}/#{e.id}"
+                class=ce.signup_css] = ce.signup

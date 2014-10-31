@@ -3,3 +3,7 @@ WS_CLASS_ROLES = {
   tank: ["Engineer", "Warrior", "Stalker"],
   healer: ["Medic", "Spellslinger", "Esper"]
 }
+
+EVENT_TYPES = ["Recurring", "One-Time", "Canceled"]
+
+EVENT_STATUS = ["Not Signed", "Available", "Unavailable", "Tentative"]

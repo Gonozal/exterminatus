@@ -12,7 +12,7 @@ class TeamsController < ApplicationController
     @teams = Team.all
     @team = Team.new(team_params)
     if @team.save
-      render action: :index
+      redirect_to action: :index
     else
       render action: :index
     end
@@ -21,7 +21,7 @@ class TeamsController < ApplicationController
   def destroy
     @team = Team.find(params[:id])
     @team.destroy
-    redirect_to teams_path
+    redirect_to action: :index
   end
 
   def update

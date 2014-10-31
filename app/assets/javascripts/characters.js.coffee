@@ -2,6 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
+  $(".rest-in-place").bind "ready.rest-in-place", (event, data) ->
+    $(this).find("input").addClass("form-control small")
+
   roles = new Bloodhound(
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace("role")
     queryTokenizer: Bloodhound.tokenizers.whitespace
