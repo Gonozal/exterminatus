@@ -10,7 +10,7 @@ class CharacterEvent < ActiveRecord::Base
 
   scope :with_signups, ->(events) do
     eager_load(character_events: :computed_event).eager_load(:team).
-
+      order("teams.name ASC, characters.klass ASC, characters.role DESC, characters.name ASC")
   end
 
   # CSS-Classes for the signup status container
