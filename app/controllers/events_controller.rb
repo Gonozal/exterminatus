@@ -39,10 +39,6 @@ class EventsController < ApplicationController
   # list between create and update. Also, you can specialize this method
   # with per-user checking of permissible attributes.
   def event_params
-    if params[:event].has_key? :type_string
-      event_type = Event.type_from_string(params[:event].delete(:type_string))
-      params[:event][:event_type] = event_type
-    end
     params.require(:event).permit(:name, :event_type, :date, :start_date, :end_date)
   end
 end

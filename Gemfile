@@ -53,7 +53,7 @@ gem "execjs"
 gem 'ice_cube'
 
 # In-Place editing
-gem 'rest_in_place'
+gem 'bootstrap-editable-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'

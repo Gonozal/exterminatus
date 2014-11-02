@@ -13,6 +13,41 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require 'rest_in_place'
+//= require bootstrap-editable
+//= require bootstrap-editable-rails
 //= require twitter/typeahead
 //= require_tree .
+$(document).ready(function() {
+$('.editable').editable({
+  mode: 'inline',
+  showbuttons: false,
+  format: 'yyyy-mm-dd',
+  viewformat: 'dd/mm/yyyy',
+
+  success: function(data, config) {
+    if(data && data.id) {  //record created, response like {"id": 2}
+      var container;
+      if(data.css){
+        if($(this).prop('tagName') != "TD") {
+            container = $(this).closest("td");
+        } else {
+            container = $(this);
+        }
+        container.removeClass('available unavailable tentative not-signed');
+        container.addClass(data.css);
+      }
+    } else if(data && data.errors){
+      config.error.call(this, data.errors);
+    }
+  },
+  error: function(errors) {
+    var msg = '';
+    if(errors && errors.responseText) { //ajax error, errors = xhr object
+        msg = errors.responseText;
+    } else { //validation error (client-side or server-side)
+        $.each(errors, function(k, v) { msg += k+": "+v+"<br>"; });
+    }
+    $('#msg').removeClass('alert-success').addClass('alert-error').html(msg).show();
+  }
+});
+});

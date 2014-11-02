@@ -1,6 +1,7 @@
 // import the CSS framework
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-editable";
 
 // make all images responsive by default
 img {
@@ -54,7 +55,7 @@ table.rip {
   tr {
     height: 34px;
     input {
-      padding: 0px;
+      padding: 3px 6px 3px 6px;
     }
   }
 }
@@ -71,10 +72,16 @@ table.rip {
 
 #events-table {
   tr td:first-child {
-    width: 25%;
+    width: 21%;
   }
-  tr td {
-    width: 15%;
+  tr td:nth-child(5) {
+    width: 8%;
+  }
+  tr td:last-child {
+    width: 8%;
+  }
+  tr td.date-editable {
+    width: 21%;
   }
 }
 

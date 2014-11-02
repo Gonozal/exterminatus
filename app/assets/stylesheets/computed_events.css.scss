@@ -2,24 +2,38 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #upcoming-events-table {
+  tbody tr {
+    max-height: 34px;
+  }
   span.event{
     display: block;
   }
   .char {
-    width: 6%;
+    width: 5%;
   }
   .char-name {
-    width: 11.5%;
+    width: 12%;
   }
   .signup {
-    width: 10.5%;
+    width: 11%;
   }
   .signup.past {
-    width: 9%
+    width: 9%;
+  }
+
+  td.signup {
+    .editable-container {
+      margin: -5px;
+    }
+  }
+
+  td span {
+    width: 100%;
+    display: block;
   }
 
   .past {
-    color: grey;
+    opacity: 0.4;
   }
   .upcoming {
     font-weight: bold;

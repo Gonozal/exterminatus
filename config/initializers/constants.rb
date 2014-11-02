@@ -1,9 +1,11 @@
 WS_CLASS_ROLES = {
-  dps: ["Engineer", "Warrior", "Stalker", "Medic", "Spellslinger", "Esper"],
   tank: ["Engineer", "Warrior", "Stalker"],
-  healer: ["Medic", "Spellslinger", "Esper"]
+  healer: ["Medic", "Spellslinger", "Esper"],
+  dps: ["Engineer", "Warrior", "Stalker", "Medic", "Spellslinger", "Esper"]
 }
 
-EVENT_TYPES = ["Recurring", "One-Time", "Canceled"]
-
-EVENT_STATUS = ["Not Signed", "Available", "Unavailable", "Tentative"]
+def enum_to_editable_hash(hash)
+  hash.map do |v, k|
+    { value: v, text: v}
+  end
+end

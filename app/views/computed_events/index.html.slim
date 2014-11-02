@@ -1,10 +1,4 @@
 h3 Upcoming Events
-// hidden div we'll be using for our select form
-.hidden#status-select
-  select.select.optional
-    - EVENT_STATUS.size.times do |i|
-      option value=i = EVENT_STATUS[i]
-
 - if @characters.empty? or (@last_events + @next_events).compact.empty?
   h5 There are currently no events scheduled
 - else
@@ -35,8 +29,13 @@ h3 Upcoming Events
           - (@last_events + @next_events).each do |e|
             - ce = c.signups e.id
             - if ce.computed_event.date < Date.today
-              td class=ce.signup_css = ce.signup
+              td class=ce.signup_css
+                span = ce.status
             - else
-              td [data-attribute="status"
-                data-url="character_events/#{c.id}/#{e.id}"
-                class=ce.signup_css] = ce.signup
+              td class=ce.signup_css
+                span.editable [data={name: "status",
+                  url: "character_events/#{c.id}/#{e.id}",
+                  resource: "character_event", type: "select",
+                  source: enum_to_editable_hash(CharacterEvent.statuses).to_json,
+                  value: ce.status}]
+                  = ce.status

@@ -1,11 +1,11 @@
 class CharactersController < ApplicationController
   def index
-    @characters = Character.all
+    @characters = Character.eager_load(:team)
     @character = Character.new
   end
 
   def create
-    @characters = Character.all
+    @characters = Character.eager_load(:team)
     @character = Character.new(character_params)
     if @character.save
       redirect_to action: :index
@@ -22,10 +22,14 @@ class CharactersController < ApplicationController
 
   def update
     @character = Character.find(params[:id])
-    @character.reload unless @character.update_attributes(character_params)
     respond_to do |format|
-      format.html
-      format.json
+      if @character.update_attributes(character_params)
+        format.html
+        format.json { head :no_content } # 204 No Content
+      else
+        format.html
+        format.json { render json: @character.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -35,10 +39,6 @@ class CharactersController < ApplicationController
   # list between create and update. Also, you can specialize this method
   # with per-user checking of permissible attributes.
   def character_params
-    if params[:character].has_key? :team_shorthand
-      team = Team.where(shorthand: params[:character].delete(:team_shorthand))
-      params[:character][:team_id] = team.blank?? nil : team.first.id
-    end
     params.require(:character).permit(:name, :klass, :role, :team_id)
   end
 end

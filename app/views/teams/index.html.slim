@@ -12,9 +12,9 @@ h3 Teams
     tbody
       - @teams.each do |t|
         tr data-object="team" data-url="/teams/#{t.id}"
-          td.rest-in-place data-attribute="name" = t.name
-          td.rest-in-place data-attribute="shorthand" = t.shorthand
-          td.rest-in-place = t.characters.count
+          td.editable data={**t.edit_data(:name)} = t.name
+          td.editable data={**t.edit_data(:shorthand)} = t.shorthand
+          td = t.characters.count
           td = link_to 'Delete', t, method: :delete,
             data: { confirm: "Are you sure you want to delete #{t.shorthand}?\n \
               This action can not be undone"}

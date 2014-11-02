@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   resources :character_events, only: [:index]
   put '/character_events/:c_id/:e_id', to: 'character_events#update'
 
+  resources :event_statuses, only: [:index]
+
   root 'characters#index'
   # Example resource route with options:
   #   resources :products do

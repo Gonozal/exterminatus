@@ -10,8 +10,15 @@ class CharacterEventsController < ApplicationController
     @ce = CharacterEvent.find_or_initialize_by(
       character_id: params[:c_id], computed_event_id: params[:e_id]
     )
-    @ce.update_attributes(character_event_params)
+
     respond_to do |format|
+      if @ce.update_attributes(character_event_params)
+        format.html
+        format.json
+      else
+        format.html
+        format.json { render json: @ce.errors, status: :unprocessable_entity }
+      end
       format.json
     end
   end
@@ -21,14 +28,6 @@ class CharacterEventsController < ApplicationController
   # list between create and update. Also, you can specialize this method
   # with per-user checking of permissible attributes.
   def character_event_params
-    status = params[:character_event][:status]
-    if status.kind_of? String
-      int_status = 0
-      EVENT_STATUS.size.times do |i|
-        int_status = i if /^#{status.downcase}.*/ =~ EVENT_STATUS[i].downcase
-      end
-      params[:character_event][:status] = int_status
-    end
     params.require(:character_event).permit(:status)
   end
 end

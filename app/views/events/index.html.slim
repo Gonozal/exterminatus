@@ -13,12 +13,16 @@ h3 Events
         th Actions
     tbody
       - @events.each do |e|
-        tr data-object="event" data-url="/events/#{e.id}"
-          td.rest-in-place data-attribute="name" = e.name
-          td.rest-in-place data-attribute="date" = e.date_str
-          td.rest-in-place data-attribute="start_date" = e.start_date_str
-          td.rest-in-place data-attribute="end_date" = e.end_date_str
-          td.rest-in-place data-attribute="type_string" = e.type_string
+        tr
+          td.editable data={**e.edit_data("name")} = e.name
+          td.date-editable data={**e.edit_data("date"), value: e.date}
+            = e.date_str
+          td.date-editable data={**e.edit_data("start_date"), value: e.start_date}
+            = e.start_date_str
+          td.date-editable data={**e.edit_data("end_date"), value: e.end_date}
+            = e.end_date_str
+          td.editable data={**e.edit_data("event_type"), value: e.event_type}
+            = e.event_type
           td = link_to 'Delete', e, method: :delete,
             data: { confirm: "Are you sure you want to delete #{e.name}?\n \
               This action can not be undone"}
@@ -32,6 +36,6 @@ h5 Add Event
   = f.input :date, placeholder: "Event Date", **date_options
   = f.input :start_date, placeholder: "Starting Date", **date_options
   = f.input :end_date, placeholder: "End Date", **date_options
-  = f.input :event_type do
-    = f.select :event_type, (0..2).map{ |i| [EVENT_TYPES[i], i]}, {}, { class: "required form-control"}
+  = f.input :event_type, placeholder: "Role", as: :select,
+    collection: Event.event_types.collect { |r| r[0] }
   = f.button :submit, text: "Add Team"

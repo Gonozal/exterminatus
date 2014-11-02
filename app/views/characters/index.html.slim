@@ -10,15 +10,18 @@ h3 Characters
         th Actions
     tbody
       - @characters.each do |c|
-        tr data-object="character" data-url="/characters/#{c.id}"
-          td.rest-in-place data-attribute="name" = c.name
-          td.rest-in-place data-attribute="klass" = c.klass
-          td.rest-in-place data-attribute="role" = c.role
-          td.rest-in-place.rip-teams data-attribute="team_shorthand"
-            = c.team.shorthand unless c.team.blank?
+        tr
+          td.editable data={**c.edit_data("name"), value: c.name}
+            = c.name
+          td.editable data={**c.edit_data("klass"), value: c.klass}
+            = c.klass
+          td.editable data={**c.edit_data("role"), value: c.role}
+            = c.role
+          td.editable data={**c.edit_data("team_id"), value: c.team_id}
+            = c.team.name unless c.team.blank?
           td = link_to 'Delete', c, method: :delete,
-            data: { confirm: "Are you sure you want to delete #{c.name}?\n \
-              This action can not be undone"}
+          data: { confirm: "Are you sure you want to delete #{c.name}?\n \
+          This action can not be undone"}
 
 
 h5 Add Character
@@ -26,7 +29,9 @@ h5 Add Character
   wrapper: :inline_form,
   html: { class: 'form-inline' } do |f|
   = f.input :name, placeholder: "Character Name"
-  = f.input :klass, placeholder: "Class"
-  = f.input :role, placeholder: "Role"
+  = f.input :klass, placeholder: "Class", as: :select,
+    collection: Character.klasses.collect { |k| [ k[0], k[0] ] }
+  = f.input :role, placeholder: "Role", as: :select,
+    collection: Character.roles.collect { |r| r[0] }
   = f.association :team
   = f.button :submit, text: "Add Character"

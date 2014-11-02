@@ -1,3 +1,3 @@
 json.id @ce.id
-json.status @ce.signup
+json.status @ce.status
 json.css @ce.signup_css

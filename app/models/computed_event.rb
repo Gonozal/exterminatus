@@ -1,11 +1,13 @@
 # coding: iso-8859-1
 class ComputedEvent < ActiveRecord::Base
   include IceCube  # Saves us from writing IceCube:: every time
-  has_many :character_events
+  has_many :character_events, dependent: :destroy
   has_many :characters, through: :character_events
   belongs_to :event
 
   default_scope -> { includes(:event) }
+
+  enum status: ["Not Signed", "Available", "Unavailable", "Tentative"]
 
   scope :next, ->(amount) do
     where("date >= ?", Date.today).order(date: :asc).limit(amount)
@@ -13,7 +15,6 @@ class ComputedEvent < ActiveRecord::Base
   scope :prev, ->(amount) do
     where("date < ?", Date.today).order(date: :desc).limit(amount).reverse
   end
-
 
   def id_string(event_id)
     days_since_launch = (date - Date.new(2014,5,8)).to_i
@@ -91,7 +92,6 @@ class ComputedEvent < ActiveRecord::Base
 
   # same as "new" but also generates the identifier
   def self.build(params)
-    logger.warn params.to_yaml
     event_id = params.delete :event_id
     e = ComputedEvent.new params
     e.identifier = e.id_string event_id
