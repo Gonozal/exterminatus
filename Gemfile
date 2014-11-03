@@ -6,9 +6,6 @@ gem 'rails', '4.1.6'
 # Database adapter (PGSQL)
 gem 'pg', '~> 0.18.0.pre20141017160319'
 
-# Fully threaded webserver
-gem 'puma'
-
 ##############################################
 # Stylesheets, JS, Templating Engines
 ##############################################
@@ -81,6 +78,9 @@ gem 'capistrano-rails', group: :development
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
+
+# Fully threaded webserver
+gem 'puma', platforms: [:ruby]
 
 gem 'rspec-rails',group: [:test, :development]
 gem 'ruby-lint', group: [:development]
