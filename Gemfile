@@ -71,8 +71,9 @@ gem 'bcrypt', '~> 3.1.7hjjk'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-gem 'capistrano-rails', group: :development
-
+# gem 'capistrano-rails', group: :development
+gem 'capistrano', '~>2.15', group: :development
+gem 'rvm-capistrano', '~> 1.5', group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
