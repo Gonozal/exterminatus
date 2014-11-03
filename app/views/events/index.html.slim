@@ -15,11 +15,11 @@ h3 Events
       - @events.each do |e|
         tr
           td.editable data={**e.edit_data("name")} = e.name
-          td.date-editable data={**e.edit_data("date"), value: e.date}
+          td.date.editable data={**e.edit_data("date"), value: e.date}
             = e.date_str
-          td.date-editable data={**e.edit_data("start_date"), value: e.start_date}
+          td.date.editable data={**e.edit_data("start_date"), value: e.start_date}
             = e.start_date_str
-          td.date-editable data={**e.edit_data("end_date"), value: e.end_date}
+          td.date.editable data={**e.edit_data("end_date"), value: e.end_date}
             = e.end_date_str
           td.editable data={**e.edit_data("event_type"), value: e.event_type}
             = e.event_type

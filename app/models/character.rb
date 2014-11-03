@@ -12,6 +12,7 @@ class Character < ActiveRecord::Base
   enum klass: ["Engineer", "Warrior", "Stalker", "Medic", "Spellslinger", "Esper"]
   enum role: ["Tank", "Healer", "DPS"]
 
+
   scope :with_signups, ->(events) do
     eager_load(character_events: :computed_event).eager_load(:team).
       where("computed_events.id in (?)", events.map(&:id)).
@@ -61,6 +62,22 @@ class Character < ActiveRecord::Base
   def assoc_character_events
     @aces ||= sorted_character_events.each_with_object({}) do |ce, h|
       h[ce.computed_event_id] = ce
+    end
+  end
+
+  def self.create_dummy_char_events
+    event_id = ComputedEvent.first.id
+    missing_char_ids = CharacterEvent.all.distinct(:character_id)
+    if missing_char_ids.empty?
+      missing_chars = Character.all
+    else
+      missing_chars = Character.where("id not in (?)", missing_char_ids.map(&:character_id)).all
+    end
+    missing_chars.each do |c|
+      ce = c.character_events.build
+      ce.computed_event_id = event_id
+      ce.status = 0
+      ce.save(:validate => false)
     end
   end
 end
