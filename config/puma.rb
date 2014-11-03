@@ -4,7 +4,7 @@ environment = 'production'
 rails_env = 'production'
 ENV['RAILS_ENV'] ||= 'production'
 
-threads 1,1
+threads 4,8
 
 bind  "unix:///home/rails/apps/exterminatus/shared/tmp/puma/exterminatus.sock"
 pidfile "/home/rails/apps/exterminatus/shared/tmp/puma/pid"
