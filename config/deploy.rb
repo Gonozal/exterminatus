@@ -97,6 +97,7 @@ namespace :deploy do
   end
   after "deploy:finalize_update", "deploy:symlink_config"
   after "deploy:update_code", "deploy:migrate"
+  after "deploy:restart", "deploy:cleanup"
 end
 
 # / Databse yml file linking #
