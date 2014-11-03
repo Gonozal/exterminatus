@@ -66,6 +66,7 @@ class Character < ActiveRecord::Base
   end
 
   def self.create_dummy_char_events
+    return false unless ComputedEvent.any? and Character.any?
     event_id = ComputedEvent.first.id
     missing_char_ids = CharacterEvent.all.distinct(:character_id)
     if missing_char_ids.empty?
