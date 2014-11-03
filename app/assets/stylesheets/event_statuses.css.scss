@@ -1,3 +1,42 @@
 // Place all the styles related to the event_statuses controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.table.table-condensed.status-table {
+  span {
+    display: block;
+  }
+  tr.available {
+    color: green;
+  }
+  tr.unavailable {
+    color: red;
+  }
+  tr.tentative {
+    color: orange;
+  }
+
+
+  td {
+    text-align: center;
+    width: 60px;
+    span{
+      margin-left: auto;
+      margin-right: auto;
+      width: 40px;
+    }
+  }
+  th {
+    text-align: center;
+  }
+  td:first-child{
+    text-align: right;
+    padding-right: 15px;
+    width: 100px;
+  }
+  td:nth-child(4n+2){
+    border-left-style: dashed;
+    border-left-width: 1px;
+    border-left-color: grey;
+  }
+}

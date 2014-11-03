@@ -14,6 +14,7 @@ class Character < ActiveRecord::Base
 
   scope :with_signups, ->(events) do
     eager_load(character_events: :computed_event).eager_load(:team).
+      where("computed_events.id in (?)", events.map(&:id)).
       order("teams.name ASC, characters.klass ASC, characters.role DESC, characters.name ASC")
   end
 

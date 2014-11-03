@@ -9,3 +9,6 @@ $(document).ready ->
   )
   # initialize the bloodhound suggestion engine
   teams.initialize()
+  $ ->
+    $("span").tooltip content: ->
+      $(this).attr "title"

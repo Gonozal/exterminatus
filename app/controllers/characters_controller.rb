@@ -1,11 +1,11 @@
 class CharactersController < ApplicationController
   def index
-    @characters = Character.eager_load(:team)
+    @characters = Character.eager_load(:team).order(:name)
     @character = Character.new
   end
 
   def create
-    @characters = Character.eager_load(:team)
+    @characters = Character.eager_load(:team).order(:name)
     @character = Character.new(character_params)
     if @character.save
       redirect_to action: :index

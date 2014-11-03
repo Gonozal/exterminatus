@@ -6,6 +6,9 @@ gem 'rails', '4.1.6'
 # Database adapter (PGSQL)
 gem 'pg', '~> 0.18.0.pre20141017160319'
 
+# Fully threaded webserver
+gem 'puma'
+
 ##############################################
 # Stylesheets, JS, Templating Engines
 ##############################################
@@ -71,7 +74,7 @@ gem 'bcrypt', '~> 3.1.7hjjk'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'capistrano-rails', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
