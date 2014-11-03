@@ -46,7 +46,7 @@ namespace :puma do
 
   desc "Stop Puma"
   task :stop, :except => { :no_release => true } do
-    run "#{sudo} start puma app=#{deploy_to}/current"
+    run "#{sudo} stop puma app=#{deploy_to}/current"
   end
   after "deploy:stop", "puma:stop"
 
