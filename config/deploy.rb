@@ -13,9 +13,9 @@ require "rvm/capistrano"
 #========================
 #CONFIG
 #========================
-set :application, "exterminatus-rails"
+set :application, "exterminatus"
 set :scm, :git
-set :repository, "git@github.com:Gonozal/Character-Sheet.git"
+set :repository, "git@github.com:Gonozal/exterminatus.git"
 set :branch, "master"
 set :ssh_options, { :forward_agent => true }
 set :stage, :production

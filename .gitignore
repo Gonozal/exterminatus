@@ -30,3 +30,5 @@ Gemfile.lock, .ruby-version, .ruby-gemset
 /vendor/assets/bower_components
 *.bowerrc
 bower.json
+
+Gemfile.lock
