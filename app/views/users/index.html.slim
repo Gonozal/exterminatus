@@ -1,0 +1,22 @@
+h3 Users
+- unless @users.empty?
+  table.table.table-condensed.table-hover.rip#user-table
+    thead
+      tr
+        th Name
+        th Characters
+        th Rank
+        th Actions
+    tbody
+      - @users.each do |u|
+        tr
+          - editable = (can? :edit, u)? "editable" : ""
+          td = u.name
+          td = u.characters.map(&:name).join(", ")
+          td class=editable data={**u.edit_data("rank"), value: u.rank}
+            = u.rank.humanize
+          td
+            - if can? :destroy, u
+              span.action = link_to 'Delete', u, method: :delete,
+              data: { confirm: "Are you sure you want to delete #{u.name}?\n \
+              This action can not be undone"}

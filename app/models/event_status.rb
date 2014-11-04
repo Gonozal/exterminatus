@@ -33,9 +33,10 @@ class EventStatus
     signup_hash = new_signup_hash(events)
     characters = Character.all.with_signups(events).load
     characters.each do |c|
+      next unless c.team_id.present?
       c.character_events.each do |ce|
-        signup_hash[c.team.id][:status][ce.status][ce.computed_event_id][c.role] << c.name
-        signup_hash[c.team.id][:status][ce.status][ce.computed_event_id]["Total"] << c.name
+        signup_hash[c.team_id][:status][ce.status][ce.computed_event_id][c.role] << c.name
+        signup_hash[c.team_id][:status][ce.status][ce.computed_event_id]["Total"] << c.name
       end
     end
     signup_hash

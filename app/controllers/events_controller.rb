@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  authorize_resource
   def index
     @events = Event.all
     @event = Event.new
@@ -9,11 +10,11 @@ class EventsController < ApplicationController
   end
 
   def create
-    @events = Event.all
     @event = Event.new(event_params)
     if @event.save
       redirect_to action: :index
     else
+      @events = Event.all
       render action: :index
     end
   end

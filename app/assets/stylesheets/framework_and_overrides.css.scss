@@ -46,50 +46,36 @@ section {
   margin-top: 20px;
   }
 
+// Forms
 .form-inline .form-group {
   vertical-align: Top;
   padding-right: 10px;
 }
 
-table.rip {
-  tr {
-    height: 34px;
-    input {
-      padding: 3px 6px 3px 6px;
-    }
-  }
+.authform {
+  max-width: 450px;
+}
+#error_explanation {
+  border-radius: 4px;
 }
 
-#character-table {
-  tr td:first-child {
-    width: 28%;
-  }
-  tr td {
-    width: 18%;
-  }
+.field_with_errors:first-child {
+  margin-bottom: -4px;
+  padding-left: 5px;
+}
+.field_with_errors{
+  display: inherit !important;
+  border-radius: 4px;
 }
 
-
-#events-table {
-  tr td:first-child {
-    width: 21%;
-  }
-  tr td:nth-child(5) {
-    width: 8%;
-  }
-  tr td:last-child {
-    width: 8%;
-  }
-  tr td.editable.date {
-    width: 21%;
-  }
+input.form-control.small {
+  display: inline-block;
+  padding: 3px 6px 3px 6px;
+  height: auto;
+  width: 60%;
+  font-size: 85%;
 }
 
-#team-table {
-  tr td:first-child {
-    width: 35%;
-  }
-  tr td {
-    width: 25%;
-  }
+.editable-click {
+  border-bottom: 0px !important;
 }

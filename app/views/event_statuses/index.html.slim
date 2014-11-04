@@ -30,5 +30,5 @@ h3 Event Status
             - status_hash.each do |event_id, event_hash|
               - event_hash.each do |role, characters|
                 td
-                  span title=characters.join("<br/>")
+                  span title=characters.map{|c| h c}.join("<br/>")
                     = characters.count

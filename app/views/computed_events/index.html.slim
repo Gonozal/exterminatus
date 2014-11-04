@@ -33,9 +33,14 @@ h3 Upcoming Events
                 span = ce.status
             - else
               td class=ce.signup_css
-                span.editable [data={name: "status",
-                  url: "character_events/#{c.id}/#{e.id}",
-                  resource: "character_event", type: "select",
-                  source: enum_to_editable_hash(CharacterEvent.statuses).to_json,
-                  value: ce.status}]
-                  = ce.status
+                - if can? :edit, ce
+                  span.editable [data={name: "status",
+                    url: "character_events/#{c.id}/#{e.id}",
+                    resource: "character_event", type: "select",
+                    source: enum_to_editable_hash(CharacterEvent.statuses).to_json,
+                    value: ce.status}]
+                    = ce.status
+                - else
+                  span = ce.status
+                  span.icon
+                    span.glyphicon.glyphicon-lock

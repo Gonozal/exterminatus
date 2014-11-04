@@ -44,6 +44,11 @@ gem 'slim-rails'
 gem 'simple_form', '3.1.0.rc2'
 
 
+# User Management with devise
+gem "devise"
+
+# Easy role management with cancan
+gem "cancan"
 
 # Javascript Runetimes
 gem "execjs"

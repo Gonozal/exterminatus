@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  authorize_resource
   def index
     @teams = Team.all
     @team = Team.new
@@ -9,11 +10,11 @@ class TeamsController < ApplicationController
   end
 
   def create
-    @teams = Team.all
     @team = Team.new(team_params)
     if @team.save
       redirect_to action: :index
     else
+      @teams = Team.all
       render action: :index
     end
   end
@@ -26,10 +27,14 @@ class TeamsController < ApplicationController
 
   def update
     @team = Team.find(params[:id])
-    @team.reload unless @team.update_attributes(team_params)
     respond_to do |format|
-      format.html
-      format.json { render json: @team }
+      if @team.update_attributes(team_params)
+        format.html
+        format.json { head :no_content } # 204 No Content
+      else
+        format.html
+        format.json { render json: @team.errors, status: :unprocessable_entity }
+      end
     end
   end
 

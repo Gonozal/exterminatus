@@ -11,27 +11,37 @@ h3 Characters
     tbody
       - @characters.each do |c|
         tr
-          td.editable data={**c.edit_data("name"), value: c.name}
+          - editable = (can? :edit, c)? "editable" : ""
+          td class=editable data={**c.edit_data("name"), value: c.name}
             = c.name
-          td.editable data={**c.edit_data("klass"), value: c.klass}
+          td class=editable data={**c.edit_data("klass"), value: c.klass}
             = c.klass
-          td.editable data={**c.edit_data("role"), value: c.role}
+          td class=editable data={**c.edit_data("role"), value: c.role}
             = c.role
-          td.editable data={**c.edit_data("team_id"), value: c.team_id}
+          td class=editable data={**c.edit_data("team_id"), value: c.team_id}
             = c.team.name unless c.team.blank?
-          td = link_to 'Delete', c, method: :delete,
-          data: { confirm: "Are you sure you want to delete #{c.name}?\n \
-          This action can not be undone"}
+          td
+            - if can? :destroy, c
+              span.action = link_to 'Delete', c, method: :delete,
+              data: { confirm: "Are you sure you want to delete #{c.name}?\n \
+              This action can not be undone"}
+            - if can? :claim, c
+              span.action = link_to 'Claim', "/characters/#{c.id}/claim", method: :post,
+              data: { confirm: "Are you sure you want to claim #{c.name}?\n \
+              You can only claim one character per day"}
+            - if can? :release, c
+              span.action = link_to 'Release', "/characters/#{c.id}/release", method: :post,
+              data: { confirm: "Are you sure you want to release #{c.name}? "}
 
-
-h5 Add Character
-= simple_form_for @character,
-  wrapper: :inline_form,
-  html: { class: 'form-inline' } do |f|
-  = f.input :name, placeholder: "Character Name"
-  = f.input :klass, placeholder: "Class", as: :select,
-    collection: Character.klasses.collect { |k| [ k[0], k[0] ] }
-  = f.input :role, placeholder: "Role", as: :select,
-    collection: Character.roles.collect { |r| r[0] }
-  = f.association :team
-  = f.button :submit, text: "Add Character"
+- if can? :create, Character
+  h5 Add Character
+  = simple_form_for @character,
+    wrapper: :inline_form,
+    html: { class: 'form-inline' } do |f|
+    = f.input :name, placeholder: "Character Name"
+    = f.input :klass, placeholder: "Class", as: :select,
+      collection: Character.klasses.collect { |k| [ k[0], k[0] ] }
+    = f.input :role, placeholder: "Role", as: :select,
+      collection: Character.roles.collect { |r| r[0] }
+    = f.association :team
+    = f.button :submit, text: "Add Character"

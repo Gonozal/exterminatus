@@ -11,18 +11,19 @@ h3 Teams
         th Actions
     tbody
       - @teams.each do |t|
+        - editable = (can? :edit, t)? "editable" : ""
         tr data-object="team" data-url="/teams/#{t.id}"
-          td.editable data={**t.edit_data(:name)} = t.name
-          td.editable data={**t.edit_data(:shorthand)} = t.shorthand
+          td class=editable data={**t.edit_data(:name)} = t.name
+          td class=editable data={**t.edit_data(:shorthand)} = t.shorthand
           td = t.characters.count
           td = link_to 'Delete', t, method: :delete,
             data: { confirm: "Are you sure you want to delete #{t.shorthand}?\n \
               This action can not be undone"}
-
-h5 Add Raiding Team
-= simple_form_for @team,
-  wrapper: :inline_form,
-  html: { class: 'form-inline' } do |f|
-  = f.input :name, placeholder: "Team Name"
-  = f.input :shorthand, placeholder: "Shorthand"
-  = f.button :submit, text: "Add Team"
+- if can? :create, Team
+  h5 Add Raiding Team
+  = simple_form_for @team,
+    wrapper: :inline_form,
+    html: { class: 'form-inline' } do |f|
+    = f.input :name, placeholder: "Team Name"
+    = f.input :shorthand, placeholder: "Shorthand"
+    = f.button :submit, text: "Add Team"

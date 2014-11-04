@@ -2,6 +2,7 @@ class Character < ActiveRecord::Base
   attr_accessor :team_shorthand
 
   belongs_to :team
+  belongs_to :user
   has_many :character_events
   has_many :computed_events, through: :character_events
 

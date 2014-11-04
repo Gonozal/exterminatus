@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141030080419) do
+ActiveRecord::Schema.define(version: 20141104141932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(version: 20141030080419) do
     t.datetime "updated_at"
   end
 
+  add_index "character_events", ["character_id"], name: "index_character_events_on_character_id", using: :btree
+  add_index "character_events", ["computed_event_id"], name: "index_character_events_on_computed_event_id", using: :btree
+
   create_table "characters", force: true do |t|
     t.string   "name"
     t.integer  "klass"
@@ -31,7 +34,11 @@ ActiveRecord::Schema.define(version: 20141030080419) do
     t.integer  "team_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
+
+  add_index "characters", ["team_id"], name: "index_characters_on_team_id", using: :btree
+  add_index "characters", ["user_id"], name: "index_characters_on_user_id", using: :btree
 
   create_table "computed_events", force: true do |t|
     t.date     "date"
@@ -40,6 +47,9 @@ ActiveRecord::Schema.define(version: 20141030080419) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "computed_events", ["event_id"], name: "index_computed_events_on_event_id", using: :btree
+  add_index "computed_events", ["identifier"], name: "index_computed_events_on_identifier", unique: true, using: :btree
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -52,11 +62,42 @@ ActiveRecord::Schema.define(version: 20141030080419) do
     t.datetime "updated_at"
   end
 
+  create_table "roles", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "roles_users", id: false, force: true do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+  end
+
+  add_index "roles_users", ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id", unique: true, using: :btree
+
   create_table "teams", force: true do |t|
     t.string   "name"
     t.string   "shorthand"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "users", force: true do |t|
+    t.string   "name",                   default: "", null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.integer  "rank",                   default: 0
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "last_claim"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

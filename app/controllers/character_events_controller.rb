@@ -1,5 +1,5 @@
-# coding: iso-8859-1
 class CharacterEventsController < ApplicationController
+  authorize_resource
   def index
     @last_events = ComputedEvent.prev(2)
     @next_events = ComputedEvent.next(5)
@@ -10,9 +10,8 @@ class CharacterEventsController < ApplicationController
     @ce = CharacterEvent.find_or_initialize_by(
       character_id: params[:c_id], computed_event_id: params[:e_id]
     )
-
     respond_to do |format|
-      if @ce.update_attributes(character_event_params)
+      if can? :edit, @ce and @ce.update_attributes(character_event_params)
         format.html
         format.json
       else

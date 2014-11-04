@@ -10,8 +10,16 @@ nav.navbar.navbar-inverse.navbar-fixed-top
       = link_to 'Home', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-        li = link_to "Characters", characters_path
-        li = link_to "Teams", teams_path
-        li = link_to "Event Rules", events_path
-        li = link_to "Upcoming Events", computed_events_path
-        li = link_to "Event Details", event_statuses_path
+          li = link_to("Accounts", users_path) if can? :index, User
+          li = link_to("Characters", characters_path) if can? :index, Character
+          li = link_to("Teams", teams_path) if can? :index, Team
+          li = link_to("Event Rules", events_path) if can? :index, Event
+          li = link_to("Event Signup", computed_events_path) if can? :index, ComputedEvent
+          li = link_to("Signup Status", event_statuses_path) if can? :index, EventStatus
+      .pull-right
+        - if user_signed_in?
+          = link_to 'Edit account', edit_user_registration_path, class: 'navbar-brand'
+          = link_to 'Sign out', destroy_user_session_path, method: 'delete', class: 'navbar-brand'
+        - else
+          = link_to 'Sign in', new_user_session_path, class: 'navbar-brand'
+          = link_to 'Sign up', new_user_registration_path, class: 'navbar-brand'

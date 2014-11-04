@@ -1,0 +1,132 @@
+// Adjust input padding for inline-edit tables
+table.rip {
+  tr {
+    height: 34px;
+    input {
+      padding: 3px 6px 3px 6px;
+    }
+  }
+}
+
+#upcoming-events-table {
+  span.event {
+    display: block;
+  }
+  span.icon {
+    font-size: 50%;
+    vertical-align: middle;
+    padding-left: 5px;
+    color: grey;
+  }
+  .char {
+    width: 5%;
+  }
+  .char-name {
+    width: 12%;
+  }
+  .signup {
+    width: 11%;
+  }
+  .signup.past {
+    width: 9%;
+  }
+  td.signup {
+    .editable-container {
+      margin: -5px;
+    }
+  }
+  .past {
+    opacity: 0.4;
+  }
+}
+
+// Signup Status colors
+.available {
+  color: green;
+}
+.unavailable {
+  color: red;
+}
+.tentative {
+  color: orange;
+}
+
+// Widths for tables to make inline-editing smooother
+#user-table {
+  td {
+    width: 25%;
+  }
+}
+
+#character-table {
+  tr td:first-child {
+    width: 24%;
+  }
+  tr td {
+    width: 19%;
+  }
+  span.action {
+    padding-right: 4px;
+  }
+}
+
+#events-table {
+  tr td:first-child {
+    width: 21%;
+  }
+  tr td:nth-child(5) {
+    width: 8%;
+  }
+  tr td:last-child {
+    width: 8%;
+  }
+  tr td.editable.date {
+    width: 21%;
+  }
+}
+
+#team-table {
+  tr td:first-child {
+    width: 35%;
+  }
+  tr td {
+    width: 25%;
+  }
+}
+
+
+// Signup Status table
+// Has a bunch of extra classes to more reliably override bootstrap
+.table.table-condensed.status-table {
+  // Display raid date/name/weekday in seperate lines
+  th span {
+    display: block;
+    text-align: center;
+  }
+
+  // Center signup status
+  td {
+    text-align: center;
+    width: 60px;
+    span {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 40px;
+    }
+  }
+
+  // Alignment for Status column
+  td:first-child {
+    text-align: right;
+    padding-right: 15px;
+    width: 100px;
+  }
+
+  // Display borders for every event
+  td:nth-child(4n+2) {
+    border-left-style: dashed;
+    border-left-width: 1px;
+    border-left-color: grey;
+  }
+}

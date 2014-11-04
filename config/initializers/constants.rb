@@ -6,6 +6,6 @@ WS_CLASS_ROLES = {
 
 def enum_to_editable_hash(hash)
   hash.map do |v, k|
-    { value: v, text: v}
+    { value: v, text: v.humanize }
   end
 end

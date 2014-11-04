@@ -1,4 +1,5 @@
 class ComputedEventsController < ApplicationController
+  authorize_resource
   def index
     @last_events = ComputedEvent.prev(2)
     @next_events = ComputedEvent.next(5)
