@@ -13,12 +13,16 @@ h3 Teams
       - @teams.each do |t|
         - editable = (can? :edit, t)? "editable" : ""
         tr data-object="team" data-url="/teams/#{t.id}"
-          td class=editable data={**t.edit_data(:name)} = t.name
-          td class=editable data={**t.edit_data(:shorthand)} = t.shorthand
-          td = t.characters.count
-          td = link_to 'Delete', t, method: :delete,
-            data: { confirm: "Are you sure you want to delete #{t.shorthand}?\n \
-              This action can not be undone"}
+          td
+            span class=editable data={**t.edit_data(:name)} = t.name
+          td
+            span class=editable data={**t.edit_data(:shorthand)} = t.shorthand
+          td
+            span = t.characters.count
+          td
+            span = link_to 'Delete', t, method: :delete,
+              data: { confirm: "Are you sure you want to delete #{t.shorthand}?\n \
+                This action can not be undone"}
 - if can? :create, Team
   h5 Add Raiding Team
   = simple_form_for @team,

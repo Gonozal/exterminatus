@@ -14,18 +14,24 @@ h3 Events
     tbody
       - @events.each do |e|
         tr
-          td.editable data={**e.edit_data("name")} = e.name
-          td.date.editable data={**e.edit_data("date"), value: e.date}
-            = e.date_str
-          td.date.editable data={**e.edit_data("start_date"), value: e.start_date}
-            = e.start_date_str
-          td.date.editable data={**e.edit_data("end_date"), value: e.end_date}
-            = e.end_date_str
-          td.editable data={**e.edit_data("event_type"), value: e.event_type}
-            = e.event_type
-          td = link_to 'Delete', e, method: :delete,
-            data: { confirm: "Are you sure you want to delete #{e.name}?\n \
-              This action can not be undone"}
+          td
+            span.editable data={**e.edit_data("name")} = e.name
+          td.date
+            span.editable data={**e.edit_data("date"), value: e.date}
+              = e.date_str
+          td.date
+            span.editable data={**e.edit_data("start_date"), value: e.start_date}
+              = e.start_date_str
+          td.date
+            span.editable data={**e.edit_data("end_date"), value: e.end_date}
+              = e.end_date_str
+          td
+            span.editable data={**e.edit_data("event_type"), value: e.event_type}
+              = e.event_type
+          td
+            span = link_to 'Delete', e, method: :delete,
+              data: { confirm: "Are you sure you want to delete #{e.name}?\n \
+                This action can not be undone"}
 
 h5 Add Event
 - date_options = { as: :string, input_html: { class: 'datepicker' } }

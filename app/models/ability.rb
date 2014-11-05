@@ -6,7 +6,6 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.admin?
       can :manage, :all
-
       cannot :release, Character do |character|
         character.user_id.blank?
       end
@@ -22,15 +21,16 @@ class Ability
         character.user_id.blank? and
           (user.last_claim.blank? or user.last_claim < Time.now - 23.hours)
       end
-      can :release, Character do |character|
+      can [:release, :update], Character do |character|
         character.user_id == user.id
       end
-      can :read, [Character, Team, ComputedEvent, EventStatus]
+      can :read, [Character, ComputedEvent, EventStatus]
     else
+      # Guest users
       can :update, CharacterEvent do |character_event|
         character_event.character.user_id.blank?
       end
-      can :read, [Character, Team, ComputedEvent, EventStatus]
+      can :read, [Character, ComputedEvent, EventStatus]
     end
     #
     # The first argument to `can` is the action you are giving the user

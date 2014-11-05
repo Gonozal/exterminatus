@@ -10,12 +10,18 @@ nav.navbar.navbar-inverse.navbar-fixed-top
       = link_to 'Home', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse
       ul.nav.navbar-nav
-          li = link_to("Accounts", users_path) if can? :index, User
-          li = link_to("Characters", characters_path) if can? :index, Character
-          li = link_to("Teams", teams_path) if can? :index, Team
-          li = link_to("Event Rules", events_path) if can? :index, Event
-          li = link_to("Event Signup", computed_events_path) if can? :index, ComputedEvent
-          li = link_to("Signup Status", event_statuses_path) if can? :index, EventStatus
+        - if can? :index, User or can? :index, Team or can? :index, Event
+          li.dropdown
+            a.dropdown-toggle href="#" data-toggle="dropdown"
+              = "Admin"
+              span.caret
+            ul.dropdown-menu role="menu"
+              li = link_to("Accounts", users_path) if can? :index, User
+              li = link_to("Teams", teams_path) if can? :index, Team
+              li = link_to("Event Rules", events_path) if can? :index, Event
+        li = link_to("Characters", characters_path) if can? :index, Character
+        li = link_to("Event Signup", computed_events_path) if can? :index, ComputedEvent
+        li = link_to("Signup Status", event_statuses_path) if can? :index, EventStatus
       .pull-right
         - if user_signed_in?
           = link_to 'Edit account', edit_user_registration_path, class: 'navbar-brand'

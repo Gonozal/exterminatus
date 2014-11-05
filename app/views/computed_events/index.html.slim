@@ -8,24 +8,22 @@ h3 Upcoming Events
         th Name
         th Class
         th Role
-        th Team
         - @last_events.each do |e|
           th
-            span.past.event.event-weekday = Date::DAYNAMES[e.date.wday]
-            span.past.event.event-date = e.date.strftime(Event.format)
-            span.past.event.event-name = e.event.name
+            .past.event-weekday = Date::DAYNAMES[e.date.wday]
+            .past.event-date = e.date.strftime(Event.format)
+            .past.event-name = e.event.name
         - @next_events.each do |e|
           th
-            span.event.event-weekday = Date::DAYNAMES[e.date.wday]
-            span.event.event-date = e.date.strftime(Event.format)
-            span.event.event-name = e.event.name
+            .event-weekday = Date::DAYNAMES[e.date.wday]
+            .event-date = e.date.strftime(Event.format)
+            .event-name = e.event.name
     tbody
       - @characters.each do |c|
         tr data-object = "character_event"
           td.char-name = c.name
           td.char = c.klass
           td.char = c.role
-          td.char = c.team.shorthand if c.team.present?
           - (@last_events + @next_events).each do |e|
             - ce = c.signups e.id
             - if ce.computed_event.date < Date.today
@@ -34,13 +32,18 @@ h3 Upcoming Events
             - else
               td class=ce.signup_css
                 - if can? :edit, ce
-                  span.editable [data={name: "status",
+                  span.signup.editable [data={name: "status",
                     url: "character_events/#{c.id}/#{e.id}",
                     resource: "character_event", type: "select",
                     source: enum_to_editable_hash(CharacterEvent.statuses).to_json,
-                    value: ce.status}]
-                    = ce.status
+                    value: ce.status}] = ce.status
+                  .note.note-editable [data={name: "note",
+                    url: "character_events/#{c.id}/#{e.id}",
+                    resource: "character_event", type: "text",
+                    source: enum_to_editable_hash(CharacterEvent.statuses).to_json,
+                    value: ce.note}] = ce.note_text
                 - else
-                  span = ce.status
+                  span.signup = ce.status
                   span.icon
                     span.glyphicon.glyphicon-lock
+                  .note = ce.note_text

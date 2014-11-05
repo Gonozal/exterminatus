@@ -6,17 +6,15 @@ table.rip {
       padding: 3px 6px 3px 6px;
     }
   }
+  td span {
+    padding: 0px;
+  }
 }
 
 #upcoming-events-table {
-  span.event {
-    display: block;
-  }
-  span.icon {
-    font-size: 50%;
-    vertical-align: middle;
-    padding-left: 5px;
-    color: grey;
+  td{
+    padding-top: 2px;
+    padding-bottom: 2px;
   }
   .char {
     width: 5%;
@@ -25,18 +23,22 @@ table.rip {
     width: 12%;
   }
   .signup {
-    width: 11%;
+    width: 12%;
   }
   .signup.past {
     width: 9%;
   }
-  td.signup {
-    .editable-container {
-      margin: -5px;
-    }
+  .signup {
+    vertical-align: top;
   }
   .past {
     opacity: 0.4;
+  }
+  .note {
+    color: black;
+    font-style: italic;
+    font-size: 75%;
+    vertical-align: top;
   }
 }
 
@@ -80,7 +82,7 @@ table.rip {
   tr td:last-child {
     width: 8%;
   }
-  tr td.editable.date {
+  tr td.date {
     width: 21%;
   }
 }

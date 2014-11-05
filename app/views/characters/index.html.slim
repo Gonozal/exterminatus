@@ -12,14 +12,18 @@ h3 Characters
       - @characters.each do |c|
         tr
           - editable = (can? :edit, c)? "editable" : ""
-          td class=editable data={**c.edit_data("name"), value: c.name}
-            = c.name
-          td class=editable data={**c.edit_data("klass"), value: c.klass}
-            = c.klass
-          td class=editable data={**c.edit_data("role"), value: c.role}
-            = c.role
-          td class=editable data={**c.edit_data("team_id"), value: c.team_id}
-            = c.team.name unless c.team.blank?
+          td
+            span class=editable data={**c.edit_data("name"), value: c.name}
+              = c.name
+          td
+            span class=editable data={**c.edit_data("klass"), value: c.klass}
+              = c.klass
+          td
+            span class=editable data={**c.edit_data("role"), value: c.role}
+              = c.role
+          td
+            span class=editable data={**c.edit_data("team_id"), value: c.team_id}
+              = c.team.name unless c.team.blank?
           td
             - if can? :destroy, c
               span.action = link_to 'Delete', c, method: :delete,

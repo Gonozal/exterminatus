@@ -21,4 +21,8 @@ class CharacterEvent < ActiveRecord::Base
     css_class << "past" if computed_event.date < Date.today
     css_class.join " "
   end
+
+  def note_text
+    note.blank?? "No note" : note
+  end
 end

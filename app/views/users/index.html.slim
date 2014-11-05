@@ -11,10 +11,13 @@ h3 Users
       - @users.each do |u|
         tr
           - editable = (can? :edit, u)? "editable" : ""
-          td = u.name
-          td = u.characters.map(&:name).join(", ")
-          td class=editable data={**u.edit_data("rank"), value: u.rank}
-            = u.rank.humanize
+          td
+            span = u.name
+          td
+            span = u.characters.map(&:name).join(", ")
+          td
+            span class=editable data={**u.edit_data("rank"), value: u.rank}
+              = u.rank.humanize
           td
             - if can? :destroy, u
               span.action = link_to 'Delete', u, method: :delete,

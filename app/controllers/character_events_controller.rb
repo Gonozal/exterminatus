@@ -27,6 +27,6 @@ class CharacterEventsController < ApplicationController
   # list between create and update. Also, you can specialize this method
   # with per-user checking of permissible attributes.
   def character_event_params
-    params.require(:character_event).permit(:status)
+    params.require(:character_event).permit(:status, :note)
   end
 end
