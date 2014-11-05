@@ -12,6 +12,9 @@ table.rip {
 }
 
 #upcoming-events-table {
+  tr {
+    height: 41px;
+  }
   td{
     padding-top: 2px;
     padding-bottom: 2px;
@@ -35,7 +38,7 @@ table.rip {
     opacity: 0.4;
   }
   .note {
-    color: black;
+    width: 100%;
     font-style: italic;
     font-size: 75%;
     vertical-align: top;

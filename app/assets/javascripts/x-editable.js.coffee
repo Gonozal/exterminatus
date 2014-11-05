@@ -7,11 +7,12 @@ $(document).ready ->
     success: (data, config) ->
       if data and data.id #record created, response like {"id": 2}
         if data.css
-          if $(this).prop("tagName") is "TD"
+          if $(this).prop("tagName") is "span"
             container = $(this)
           else
-            container = $(this).closest("td")
+            container = $(this).closest("span")
 
+          console.log(data.css)
           container.removeClass "available unavailable tentative not-signed"
           container.addClass data.css
       else if data and data.errors
@@ -28,4 +29,4 @@ $(document).ready ->
       else #validation error (client-side or server-side)
         $.each errors, (k, v) ->
           msg += k + ": " + v
-      return msg
+      return ms
