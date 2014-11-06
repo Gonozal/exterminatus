@@ -59,6 +59,8 @@ gem 'ice_cube'
 
 # In-Place editing
 gem 'bootstrap-editable-rails'
+# Sortable tables
+gem 'jquery-tablesorter'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'

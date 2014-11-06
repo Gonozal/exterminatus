@@ -12,36 +12,47 @@ table.rip {
 }
 
 #upcoming-events-table {
-  tr {
-    height: 41px;
+  .event {
+    line-height: 105%;
   }
-  td{
-    padding-top: 2px;
-    padding-bottom: 2px;
+  td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  tr {
+    height: 32px;
   }
   .char {
     width: 5%;
+    max-width: 5%;
   }
   .char-name {
-    width: 12%;
+    width: 11%;
+    max-width: 11%;
   }
   .signup {
-    width: 12%;
+    width: 14%;
+    max-width: 14%;
   }
   .signup.past {
     width: 9%;
+    max-width: 9%;
   }
-  .signup {
+  span.signup {
     vertical-align: top;
+    width: 80px;
   }
   .past {
     opacity: 0.4;
   }
+  .table-row{
+    display: inline-block;
+  }
   .note {
-    width: 100%;
-    font-style: italic;
-    font-size: 75%;
-    vertical-align: top;
+    white-space: normal;
+    display: inline-block;
+    font-size: 85%;
+    padding-left: 5px;
   }
 }
 

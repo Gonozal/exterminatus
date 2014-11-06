@@ -16,12 +16,13 @@
 //= require bootstrap-editable
 //= require bootstrap-editable-rails
 //= require twitter/typeahead
+//= require jquery-tablesorter
 //= require_tree .
 $(document).ready(function() {
   $('.note-editable').editable({
     mode: 'popup',
     showbuttons: true,
-    emptytext: "*add note*",
+    emptytext: "[add note]",
     emptyclass: "text-muted",
     success: function(data, config) {
       if(data && data.id) {  //record created, response like {"id": 2}
@@ -38,6 +39,19 @@ $(document).ready(function() {
           $.each(errors, function(k, v) { msg += k+": "+v+"<br>"; });
       }
       $('#msg').removeClass('alert-success').addClass('alert-error').html(msg).show();
+    }
+  });
+
+  $("#upcoming-events-table").tablesorter({
+    theme : 'bootstrap',
+    headerTemplate : '{content} {icon}',
+    headers: {
+      3: {sorter: false},
+      4: {sorter: false},
+      5: {sorter: false},
+      6: {sorter: false},
+      7: {sorter: false},
+      8: {sorter: false}
     }
   });
 });
