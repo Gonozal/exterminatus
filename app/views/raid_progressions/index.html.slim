@@ -1,0 +1,27 @@
+h3 Raid Progression
+- if @characters.empty? or @bosses.empty?
+  h5 There are no characters or bosses to show progression for
+- else
+  table.table.table-condensed.table-hover.rip#raid-progression-table
+    thead
+      tr
+        th Character Name
+        - @bosses.each do |b|
+          th = b.name
+    tbody
+      - @characters.each do |c|
+        tr data-object = "raid_progression"
+          td.char-name = c.name
+          - c.boss_preferences.each do |bp|
+            td
+              - if can? :edit, bp
+                span.editable [class=bp.progression
+                  data={name: "progression",
+                  url: "/raid_progressions/#{bp.id}",
+                  resource: "boss_preference", type: "select",
+                  source: enum_to_editable_hash(BossPreference.progressions).to_json,
+                  value: bp.progression}] = bp.progression.humanize
+              - else
+                span class=bp.progression = bp.progression.humanize
+                span.icon
+                  span.glyphicon.glyphicon-lock

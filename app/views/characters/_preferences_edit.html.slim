@@ -1,0 +1,12 @@
+h4 Raid Preferences
+dl.dl-horizontal.dl-pref
+  - @character.boss_preferences.each do |bp|
+    dt = bp.raid_boss.name
+    dd
+      span.editable class=bp.preference data={name: "preference",
+                    url: "/raid_preferences/#{bp.id}",
+                    resource: "boss_preference", type: "select",
+                    source: enum_to_editable_hash(BossPreference.preferences).to_json,
+                    value: bp.preference} = bp.preference.humanize
+      span.icon
+        span.glyphicon.glyphicon-edit

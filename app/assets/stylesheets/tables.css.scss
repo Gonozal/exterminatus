@@ -11,6 +11,10 @@ table.rip {
   }
 }
 
+.tablesorter-header-inner {
+  padding-right: 4px !important;
+}
+
 #upcoming-events-table {
   .event {
     line-height: 105%;
@@ -54,17 +58,6 @@ table.rip {
     font-size: 85%;
     padding-left: 5px;
   }
-}
-
-// Signup Status colors
-.available {
-  color: green;
-}
-.unavailable {
-  color: red;
-}
-.tentative {
-  color: orange;
 }
 
 // Widths for tables to make inline-editing smooother
@@ -144,5 +137,33 @@ table.rip {
     border-left-style: dashed;
     border-left-width: 1px;
     border-left-color: grey;
+  }
+}
+.not_started {
+  color: red;
+}
+.progression {
+  color: orange;
+}
+.killed {
+  color: green;
+}
+// Signup Status colors
+.available {
+  color: green;
+}
+.unavailable {
+  color: red;
+}
+.tentative {
+  color: orange;
+}
+
+#raid-progression-table {
+  td:first-child {
+    width: 220px;
+  }
+  td {
+    width: 195px;
   }
 }

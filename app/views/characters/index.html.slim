@@ -25,6 +25,11 @@ h3 Characters
             span class=editable data={**c.edit_data("team_id"), value: c.team_id}
               = c.team.name unless c.team.blank?
           td
+            - can_edit_char = (can? :edit, c.boss_preferences.first or can? :edit, c)
+            - if can? :show, c and !can_edit_char
+              span.action = link_to 'Show', "/characters/#{c.id}"
+            - if can_edit_char
+              span.action = link_to 'Edit', "/characters/#{c.id}"
             - if can? :destroy, c
               span.action = link_to 'Delete', c, method: :delete,
               data: { confirm: "Are you sure you want to delete #{c.name}?\n \

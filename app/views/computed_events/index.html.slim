@@ -24,8 +24,7 @@ h3 Upcoming Events
           td.char-name = c.name
           td.char = c.klass
           td.char = c.role
-          - (@last_events + @next_events).each do |e|
-            - ce = c.signups e.id
+          - c.character_events.each do |ce|
             - if ce.computed_event.date < Date.today
               td class=ce.signup_css
                 span = ce.status
@@ -34,12 +33,12 @@ h3 Upcoming Events
                 - if can? :edit, ce
                   span.signup.editable [class=ce.signup_css
                     data={name: "status",
-                    url: "character_events/#{c.id}/#{e.id}",
+                    url: "character_events/#{c.id}/#{ce.computed_event_id}",
                     resource: "character_event", type: "select",
                     source: enum_to_editable_hash(CharacterEvent.statuses).to_json,
                     value: ce.status}] = ce.status
                   span.note.note-editable [data={name: "note",
-                    url: "character_events/#{c.id}/#{e.id}",
+                    url: "character_events/#{c.id}/#{ce.computed_event_id}",
                     resource: "character_event", type: "text",
                     source: enum_to_editable_hash(CharacterEvent.statuses).to_json,
                     value: ce.note}] = ce.note

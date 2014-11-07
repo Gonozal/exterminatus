@@ -6,6 +6,11 @@ class Character < ActiveRecord::Base
   has_many :character_events
   has_many :computed_events, through: :character_events
 
+  has_many :boss_preferences
+  has_many :raid_bosses, -> {order 'raid_boss.raid, raid_boss.floor, raid_boss.position'},
+           through: :boss_preferences
+
+
   validates :name, presence: true, uniqueness: true
 
   validates_with RoleValidator
@@ -17,7 +22,19 @@ class Character < ActiveRecord::Base
   scope :with_signups, ->(events) do
     eager_load(character_events: :computed_event).eager_load(:team).
       where("computed_events.id in (?)", events.map(&:id)).
-      order("teams.name ASC, characters.klass ASC, characters.role DESC, characters.name ASC")
+      order("teams.name, characters.klass, characters.role DESC, characters.name").
+      order("computed_events.date")
+  end
+
+  scope :for_next_raid, ->(event) do
+    with_boss_preferences.eager_load(:character_events).
+      where(character_events: {computed_event_id: event.id, status: 1}).
+      order(:name)
+  end
+
+  scope :with_boss_preferences, -> do
+    includes(boss_preferences: :raid_boss).
+      order('raid_bosses.raid, raid_bosses.floor, raid_bosses.position')
   end
 
   def edit_data(attribute)
@@ -38,48 +55,5 @@ class Character < ActiveRecord::Base
       resource: "character",
       name: attribute
     }.merge(select_hash)
-  end
-
-  def signups(event_id)
-    if assoc_character_events.has_key? event_id
-      assoc_character_events[event_id]
-    else
-      ce = character_events.build
-      ce.computed_event_id = event_id
-      ce.status = 0
-      ce.save
-      ce
-    end
-  end
-
-  protected
-  def sorted_character_events
-    return [] unless character_events.any?
-    character_events.sort do |x, y|
-      x.computed_event.date <=> y.computed_event.date
-    end
-  end
-
-  def assoc_character_events
-    @aces ||= sorted_character_events.each_with_object({}) do |ce, h|
-      h[ce.computed_event_id] = ce
-    end
-  end
-
-  def self.create_dummy_char_events
-    return false unless ComputedEvent.any? and Character.any?
-    event_id = ComputedEvent.first.id
-    missing_char_ids = CharacterEvent.all.distinct(:character_id)
-    if missing_char_ids.empty?
-      missing_chars = Character.all
-    else
-      missing_chars = Character.where("id not in (?)", missing_char_ids.map(&:character_id)).all
-    end
-    missing_chars.each do |c|
-      ce = c.character_events.build
-      ce.computed_event_id = event_id
-      ce.status = 0
-      ce.save(:validate => false)
-    end
   end
 end

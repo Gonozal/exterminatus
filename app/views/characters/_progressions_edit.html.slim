@@ -1,0 +1,13 @@
+h4 Raid Progression
+dl.dl-horizontal.dl-pref
+  - @character.boss_preferences.each do |bp|
+    - next unless bp.raid_boss.boss_type == "boss"
+    dt = bp.raid_boss.name
+    dd
+      span.editable class=bp.progression data={name: "progression",
+                    url: "/raid_progressions/#{bp.id}",
+                    resource: "boss_preference", type: "select",
+                    source: enum_to_editable_hash(BossPreference.progressions).to_json,
+                    value: bp.progression} = bp.progression.humanize
+      span.icon
+        span.glyphicon.glyphicon-edit

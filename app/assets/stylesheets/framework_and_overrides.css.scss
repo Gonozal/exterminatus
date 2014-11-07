@@ -90,3 +90,41 @@ span.icon {
   padding-left: 5px !important;
   color: grey;
 }
+
+.edit-list {
+  dt, dd {
+    line-height: 2em;
+  }
+  dt {
+    width: 80px;
+  }
+  dd {
+    margin-left: 100px;
+  }
+}
+
+.dl-pref {
+  dt, dd {
+    line-height: 2em;
+  }
+  dt {
+    width: 220px;
+  }
+  dd {
+    margin-left: 240px;
+  }
+}
+dl {
+  .need {
+    color: blue;
+  }
+  .gear {
+    color: green;
+  }
+  .want {
+    color: orange;
+  }
+  .skip {
+    color: red;
+  }
+}

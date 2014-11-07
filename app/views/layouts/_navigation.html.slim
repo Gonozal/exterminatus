@@ -20,6 +20,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top
               li = link_to("Teams", teams_path) if can? :index, Team
               li = link_to("Event Rules", events_path) if can? :index, Event
         li = link_to("Characters", characters_path) if can? :index, Character
+        li = link_to("Raid Progression", raid_progressions_path) if can? :index, BossPreference
         li = link_to("Event Signup", computed_events_path) if can? :index, ComputedEvent
         li = link_to("Signup Status", event_statuses_path) if can? :index, EventStatus
       .pull-right

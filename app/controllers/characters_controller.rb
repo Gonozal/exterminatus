@@ -45,6 +45,10 @@ class CharactersController < ApplicationController
     redirect_to action: :index
   end
 
+  def show
+    @character = Character.with_boss_preferences. find(params[:id])
+  end
+
   def update
     @character = Character.find(params[:id])
     respond_to do |format|

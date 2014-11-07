@@ -1,0 +1,15 @@
+  - if can? :edit, @character
+    = render partial: "character_edit"
+  - else
+    = render partial: "character_show"
+
+  .col-md-3
+    - if can? :edit, @character.boss_preferences.first
+      = render :partial => "preferences_edit"
+    - else
+      = render :partial => "preferences_show"
+  .col-md-3
+    - if can? :edit, @character.boss_preferences.first
+      = render :partial => "progressions_edit"
+    - else
+      = render :partial => "progressions_show"

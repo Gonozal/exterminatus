@@ -1,0 +1,7 @@
+h4 Raid Progression
+dl.dl-horizontal.dl-pref
+  - @character.boss_preferences.each do |bp|
+    - next unless bp.raid_boss.boss_type == "boss"
+    dt = bp.raid_boss.name
+    dd
+      span class=bp.progression = bp.progression.humanize

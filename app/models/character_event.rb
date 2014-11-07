@@ -6,7 +6,6 @@ class CharacterEvent < ActiveRecord::Base
 
   enum status: ["Not Signed", "Available", "Unavailable", "Tentative"]
 
-  default_scope -> { includes(:computed_event) }
 
   scope :with_signups, ->(events) do
     eager_load(character_events: :computed_event).eager_load(:team).
@@ -22,7 +21,30 @@ class CharacterEvent < ActiveRecord::Base
     css_class.join " "
   end
 
-  def note_text
-    note.blank?? "No note" : note
+  def self.chars_to_update(events)
+    return [] unless events.present?
+    event_list = events.map(&:id).join ","
+    Character.all.includes(:character_events).
+      joins("LEFT OUTER JOIN character_events AS ce
+                        ON ce.character_id = characters.id AND
+                        ce.computed_event_id IN (#{event_list})").
+      having("COUNT(ce.id) < ?", events.count).
+      group("characters.id")
+  end
+
+  def self.create_dummy_char_events(events)
+    char_ids = chars_to_update(events).map(&:id)
+    return false unless char_ids.present? and events.present?
+
+    CharacterEvent.transaction do
+      Character.all.eager_load(:character_events).where(id: char_ids).each do |c|
+        ids = c.character_events.map(&:computed_event_id)
+        events.each do |e|
+          unless ids.include? e.id
+            c.character_events.create(computed_event_id: e.id)
+          end
+        end
+      end
+    end
   end
 end

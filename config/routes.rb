@@ -24,13 +24,15 @@ Rails.application.routes.draw do
   resources :teams
   resources :events
   resources :computed_events, path: 'signups'
+  resources :raid_progressions
+  resources :raid_preferences
 
   put '/character_events/:c_id/:e_id', to: 'character_events#update'
   resources :character_events, only: [:index]
 
   resources :event_statuses, only: [:index], path: "signup_status"
 
-  root 'characters#index'
+  root 'computed_events#index'
   # Example resource route with options:
   #   resources :products do
   #     member do

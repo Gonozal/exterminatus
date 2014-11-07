@@ -44,7 +44,6 @@ $(document).ready(function() {
 
   $("#upcoming-events-table").tablesorter({
     theme : 'bootstrap',
-    headerTemplate : '{content} {icon}',
     headers: {
       3: {sorter: false},
       4: {sorter: false},

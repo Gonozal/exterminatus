@@ -1,0 +1,19 @@
+h3>
+  'Settings for
+  span.editable data={**@character.edit_data("name"), value: @character.name}
+    = @character.name
+  span.icon
+    span.glyphicon.glyphicon-edit
+
+h4 Class and Role
+dl.dl-horizontal.edit-list
+  dt Class
+  dd
+    span.editable data={**@character.edit_data("klass"), value: @character.klass}
+    span.icon
+      span.glyphicon.glyphicon-edit
+  dt Role
+  dd
+    span.editable data={**@character.edit_data("role"), value: @character.role}
+    span.icon
+      span.glyphicon.glyphicon-edit

@@ -1,0 +1,6 @@
+h4 Raid Preferences
+dl.dl-horizontal.dl-pref
+  - @character.boss_preferences.each do |bp|
+    dt = bp.raid_boss.name
+    dd
+      span class=bp.preference = bp.preference.humanize

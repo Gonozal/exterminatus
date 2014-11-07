@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141105123047) do
+ActiveRecord::Schema.define(version: 20141106144925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "boss_preferences", force: true do |t|
+    t.integer  "character_id"
+    t.integer  "raid_boss_id"
+    t.integer  "preference",   default: 1, null: false
+    t.integer  "progression",  default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "boss_preferences", ["character_id"], name: "index_boss_preferences_on_character_id", using: :btree
+  add_index "boss_preferences", ["raid_boss_id"], name: "index_boss_preferences_on_raid_boss_id", using: :btree
 
   create_table "character_events", force: true do |t|
     t.integer  "character_id"
@@ -62,6 +74,19 @@ ActiveRecord::Schema.define(version: 20141105123047) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "raid_bosses", force: true do |t|
+    t.string   "name",       null: false
+    t.integer  "raid",       null: false
+    t.integer  "boss_type",  null: false
+    t.integer  "floor"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "raid_bosses", ["boss_type"], name: "index_raid_bosses_on_boss_type", using: :btree
+  add_index "raid_bosses", ["raid"], name: "index_raid_bosses_on_raid", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"

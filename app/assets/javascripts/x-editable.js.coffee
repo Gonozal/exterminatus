@@ -14,6 +14,8 @@ $(document).ready ->
 
           console.log(data.css)
           container.removeClass "available unavailable tentative not-signed"
+          container.removeClass "not_started progression killed"
+          container.removeClass "need gear want skip"
           container.addClass data.css
       else if data and data.errors
         config.error.call this, data.errors

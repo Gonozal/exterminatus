@@ -17,6 +17,10 @@ class Ability
         character = character_event.character
         character.user_id.blank? or character.user_id == user.id
       end
+      can [:edit, :update], BossPreference do |boss_preference|
+        character = boss_preference.character
+        character.user_id.blank? or character.user_id == user.id
+      end
       can :claim, Character do |character|
         character.user_id.blank? and
           (user.last_claim.blank? or user.last_claim < Time.now - 23.hours)
@@ -29,6 +33,9 @@ class Ability
       # Guest users
       can :update, CharacterEvent do |character_event|
         character_event.character.user_id.blank?
+      end
+      can :update, BossPreference do |boss_preference|
+        boss_preference.character.user_id.blank?
       end
       can :read, [Character, ComputedEvent, EventStatus]
     end
