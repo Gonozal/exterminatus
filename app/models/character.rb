@@ -51,7 +51,7 @@ class Character < ActiveRecord::Base
     end
     {
       type: input_type,
-      url: "characters/#{id}",
+      url: "/characters/#{id}",
       resource: "character",
       name: attribute
     }.merge(select_hash)
