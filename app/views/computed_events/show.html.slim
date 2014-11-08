@@ -1,0 +1,21 @@
+h3 = "Details for #{@event.event.name} Event (#{@event.date.strftime(Event.format)})"
+
+table.table.table-condensed.table-hover.rip#event-detail-table
+  thead
+    tr
+      th.name Name
+      th.class Class
+      - @bosses.each do |b|
+        th
+          span.boss = b.shorthand
+  tbody
+    - Character.roles.each do |role, i|
+      tr.role
+        td.role colspan=(@bosses.size + 2) = "#{role}s"
+      - @characters.each do |c|
+        - next unless c.role == role
+        tr
+          td.name = c.name
+          td.class = c.klass
+          - c.boss_preferences.each do |bp|
+            td.boss class=bp.preference = bp.preference

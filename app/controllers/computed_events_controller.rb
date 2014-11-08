@@ -6,4 +6,10 @@ class ComputedEventsController < ApplicationController
     CharacterEvent.create_dummy_char_events(@last_events + @next_events)
     @characters = Character.all.with_signups(@next_events + @last_events)
   end
+
+  def show
+    @event = ComputedEvent.find(params[:id])
+    @bosses = RaidBoss.all
+    @characters = Character.for_next_raid @event
+  end
 end

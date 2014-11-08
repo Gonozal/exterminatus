@@ -12,12 +12,12 @@ h3 Event Status
             th colspan = 4
               span.past.event.event-weekday = Date::DAYNAMES[e.date.wday]
               span.past.event.event-date = e.date.strftime(Event.format)
-              span.past.event.event-name = e.event.name
+              span.past.event.event-name = link_to e.event.name, e
           - @next_events.each do |e|
             th colspan = 4
               span.event.event-weekday = Date::DAYNAMES[e.date.wday]
               span.event.event-date = e.date.strftime(Event.format)
-              span.event.event-name = e.event.name
+              span.event.event-name = link_to e.event.name, e
       tbody
         tr
           td

@@ -167,3 +167,28 @@ table.rip {
     width: 195px;
   }
 }
+
+#event-detail-table {
+  .boss {
+    width: 80px;
+  }
+  .name {
+    width: 140px;
+  }
+  .class {
+    width: 100px;
+  }
+  boss {
+    text-align: center;
+  }
+  td.role{
+    font-weight: bold;
+    padding-left: 40px;
+  }
+  tr {
+    height: 30px;
+  }
+  tr.role {
+    height: 32px;
+  }
+}

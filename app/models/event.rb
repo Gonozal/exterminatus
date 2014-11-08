@@ -22,6 +22,7 @@ class Event < ActiveRecord::Base
   end
 
   def date_str
+
     date.present?? date.strftime(format) : ""
   end
 
