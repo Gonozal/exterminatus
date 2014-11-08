@@ -5,11 +5,20 @@ class CharacterEvent < ActiveRecord::Base
   validates_with SignupStatusValidator
 
   enum status: ["Not Signed", "Available", "Unavailable", "Tentative"]
+  enum rotation: [:starting_lineup, :benched, :sitting_out, :not_set]
 
 
   scope :with_signups, ->(events) do
     eager_load(character_events: :computed_event).eager_load(:team).
       order("teams.name ASC, characters.klass ASC, characters.role DESC, characters.name ASC")
+  end
+
+  def self.size_class(rotation)
+    (rotation == "starting_lineup")? "col-md-4" : "col-md-2"
+  end
+
+  def self.list_class(rotation)
+    (rotation == "starting_lineup")? "list-two" : ""
   end
 
   # CSS-Classes for the signup status container

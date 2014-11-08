@@ -66,12 +66,19 @@ end
 if User.count == 0
   account = User.create(name: "Gonozal", email: "linksoeren@googlemail.com",
                           password: "password", password_confirmation: "password")
+  second_account = User.create(name: "Gonozal2", email: "link.soeren@googlemail.com",
+                          password: "password", password_confirmation: "password")
+  third_account = User.create(name: "Gonozal3", email: "linksoere.n@googlemail.com",
+                          password: "password", password_confirmation: "password")
   account.admin!
+  second_account.approved!
   team = Team.create(name: "Inoas Angles", shorthand: "RT1", )
   Character.create(name: "Apialis Redstar", klass: 2, role: 2, team: team,
                    user: account)
-  Character.create(name: "Maviik PewPew", klass: 4, role: 2, team: team)
-  Character.create(name: "Inoa Quinn", klass: 4, role: 2, team: team)
+  Character.create(name: "Maviik PewPew", klass: 4, role: 2, team: team,
+                   user: second_account)
+  Character.create(name: "Inoa Quinn", klass: 4, role: 2, team: team,
+                   user: third_account)
   Character.create(name: "Sickie", klass: 4, role: 1, team: team)
 end
 

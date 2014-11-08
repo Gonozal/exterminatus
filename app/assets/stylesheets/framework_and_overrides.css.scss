@@ -126,3 +126,28 @@ span.icon {
 .skip {
   color: red;
 }
+
+.starting_lineup {
+  color: green;
+}
+.benched {
+  color: orange;
+}
+.sitting_out {
+  color: red;
+}
+
+ul.list-two {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  li {
+    height: 30px;
+    vertical-align: middle;
+  }
+}
+
+dd.signup-status {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

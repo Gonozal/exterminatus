@@ -6,10 +6,22 @@ class CharacterEventsController < ApplicationController
     @character_events = CharacterEvent.where_signups(@next_events + @last_events).load
   end
 
+  def rotation
+    @ce = CharacterEvent.find(params[:id])
+    respond_to do |format|
+      if can? :edit, @ce and @ce.update_attributes(rotation_params)
+        format.html
+        format.json
+      else
+        format.html
+        format.json { render json: @ce.errors, status: :unprocessable_entity }
+      end
+      format.json
+    end
+  end
+
   def update
-    @ce = CharacterEvent.find_or_initialize_by(
-      character_id: params[:c_id], computed_event_id: params[:e_id]
-    )
+    @ce = CharacterEvent.find(params[:id])
     respond_to do |format|
       if can? :edit, @ce and @ce.update_attributes(character_event_params)
         format.html
@@ -28,5 +40,8 @@ class CharacterEventsController < ApplicationController
   # with per-user checking of permissible attributes.
   def character_event_params
     params.require(:character_event).permit(:status, :note)
+  end
+  def rotation_params
+    params.require(:character_event).permit(:rotation)
   end
 end

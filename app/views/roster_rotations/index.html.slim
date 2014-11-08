@@ -1,0 +1,23 @@
+.col-md-12
+- @events.each do |event|
+  .row
+  h3 = "Roster for #{event.event.name} Event (#{event.date.strftime(Event.format)})"
+  - CharacterEvent.rotations.each do |rotation, i1|
+    - size_class = (rotation == "starting_lineup")? "col-md-4" : "col-md-2"
+    - list_class = ()
+    div class=CharacterEvent.size_class(rotation)
+      h4 = rotation.humanize
+      - Character.roles.each do |role, i2|
+        h5 class=rotation = role.humanize
+        ul class=CharacterEvent.list_class(rotation)
+          - event.character_events.each do |ce|
+            - next unless ce.rotation == rotation and ce.character.role == role
+            li
+              - if can? :rotation, ce
+                span.name.rotation-editable [class=ce.rotation data={name: "rotation",
+                  url: "/character_events/rotation/#{ce.id}",
+                  resource: "character_event", type: "select",
+                  source: enum_to_editable_hash(CharacterEvent.rotations).to_json,
+                  value: ce.rotation}] = ce.character.name
+              - else
+                span class=rotation = ce.character.name

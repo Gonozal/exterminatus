@@ -7,15 +7,25 @@ table.table.table-condensed.table-hover.rip#event-detail-table
       th.class Class
       - @bosses.each do |b|
         th
-          span.boss = b.shorthand
+          - css_class = (b.boss_type == "boss")? "" : "text-muted"
+          span.boss class=css_class = b.shorthand
   tbody
     - Character.roles.each do |role, i|
       tr.role
         td.role colspan=(@bosses.size + 2) = "#{role}s"
       - @characters.each do |c|
         - next unless c.role == role
+        - ce = c.character_events.first
         tr
-          td.name = c.name
+          td
+            - if can? :rotation, ce
+              span.name.rotation-editable [class=ce.rotation data={name: "rotation",
+                url: "/character_events/rotation/#{ce.id}",
+                resource: "character_event", type: "select",
+                source: enum_to_editable_hash(CharacterEvent.rotations).to_json,
+                value: ce.rotation}] = c.name
+            - else
+              span.name class=ce.rotation = c.name
           td.class = c.klass
           - c.boss_preferences.each do |bp|
-            td.boss class=bp.preference = bp.preference
+            td.boss class=bp.preference = bp.preference.humanize

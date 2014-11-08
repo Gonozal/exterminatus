@@ -7,23 +7,23 @@ class RaidBoss < ActiveRecord::Base
 
   def shorthand
     case name
-      when "Genetic Monstrosity" then "Monstrosity"
+      when "Genetic Monstrosity" then "Monstr"
       when "Hideously Malformed Mutant" then "HMM"
       when "Experiment X-89" then "X-89"
       when "Gravitron Operator " then "Gravitron"
       when "Kuralak the Defiler " then "Kuralak"
-      when "Fetid Miscreation " then "Fetic M."
-      when "Floor 1 Challanges" then "F1 Challange"
+      when "Fetid Miscreation " then "Fetit M."
+      when "Floor 1 Challanges" then "Challenge1"
       when "Phagetech Guardians" then "Guardians"
-      when "Phage Maw" then "Phage Maw"
+      when "Phage Maw" then "Phagemaw"
       when "Phagetech Prototypes" then "Prototypes"
-      when "Phageborn Convergence" then "Convergence"
+      when "Phageborn Convergence" then "Council"
       when "Malfunctioning Gear" then "Gear"
       when "Malfunctioning Dynamo" then "Dynamo"
       when "Malfunctioning Piston" then "Piston"
       when "Malfunctioning Battery" then "Battery"
       when "Dreadphage Ohmna" then "Ohmna"
-      when "Floor 2 Challanges" then "F2 Challange"
+      when "Floor 2 Challanges" then "Challenge2"
     end
   end
 end

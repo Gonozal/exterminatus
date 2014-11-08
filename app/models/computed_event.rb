@@ -6,6 +6,10 @@ class ComputedEvent < ActiveRecord::Base
   belongs_to :event
 
   default_scope -> { includes(:event) }
+  scope :roster_for_events, ->(events) do
+    eager_load(character_events: :character).where(id: events).
+      order(:date, 'character_events.rotation', 'characters.role', 'characters.name')
+  end
 
   enum status: ["Not Signed", "Available", "Unavailable", "Tentative"]
 

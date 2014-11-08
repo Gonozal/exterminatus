@@ -170,7 +170,7 @@ table.rip {
 
 #event-detail-table {
   .boss {
-    width: 80px;
+    width: 60px;
   }
   .name {
     width: 140px;
@@ -185,10 +185,16 @@ table.rip {
     font-weight: bold;
     padding-left: 40px;
   }
+  td {
+    padding: 2px;
+  }
+  th {
+    padding: 3px;
+  }
   tr {
-    height: 30px;
+    height: 27px;
   }
   tr.role {
-    height: 32px;
+    height: 27px;
   }
 }

@@ -46,7 +46,9 @@ class CharactersController < ApplicationController
   end
 
   def show
-    @character = Character.with_boss_preferences. find(params[:id])
+    events = ComputedEvent.prev(2) + ComputedEvent.next(4)
+    @character_signups = Character.with_signups(events).find(params[:id])
+    @character = Character.with_boss_preferences.find(params[:id])
   end
 
   def update

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106144925) do
+ActiveRecord::Schema.define(version: 20141108152719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20141106144925) do
   create_table "boss_preferences", force: true do |t|
     t.integer  "character_id"
     t.integer  "raid_boss_id"
-    t.integer  "preference",   default: 1, null: false
+    t.integer  "preference",   default: 2, null: false
     t.integer  "progression",  default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -35,10 +35,12 @@ ActiveRecord::Schema.define(version: 20141106144925) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "note",              default: ""
+    t.integer  "rotation",          default: 3
   end
 
   add_index "character_events", ["character_id"], name: "index_character_events_on_character_id", using: :btree
   add_index "character_events", ["computed_event_id"], name: "index_character_events_on_computed_event_id", using: :btree
+  add_index "character_events", ["rotation"], name: "index_character_events_on_rotation", using: :btree
 
   create_table "characters", force: true do |t|
     t.string   "name"

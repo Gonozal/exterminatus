@@ -4,12 +4,54 @@
     = render partial: "character_show"
 
   .col-md-3
-    - if can? :edit, @character.boss_preferences.first
-      = render :partial => "preferences_edit"
-    - else
-      = render :partial => "preferences_show"
-  .col-md-3
-    - if can? :edit, @character.boss_preferences.first
-      = render :partial => "progressions_edit"
-    - else
-      = render :partial => "progressions_show"
+    .row
+      - if can? :edit, @character.boss_preferences.first
+        = render :partial => "preferences_edit"
+      - else
+        = render :partial => "preferences_show"
+  .col-md-4
+    .row
+      - if can? :edit, @character.boss_preferences.first
+        = render :partial => "progressions_edit"
+      - else
+        = render :partial => "progressions_show"
+
+    .row
+      h4 Event Signup & Status
+      dl.dl-horizontal.dl-pref
+        - @character_signups.character_events.each do |ce|
+          dt = "#{ce.computed_event.event.name} on \
+            #{ce.computed_event.event.date.strftime(Event.format)}"
+          dd.signup-status
+            - if can? :edit, ce
+              .small-block
+                span.signup.editable [class=ce.signup_css
+                  data={name: "status",
+                  url: "/character_events/signup/#{ce.id}",
+                  resource: "character_event", type: "select",
+                  source: enum_to_editable_hash(CharacterEvent.statuses).to_json,
+                  value: ce.status}] = ce.status
+                span.icon
+                  span.glyphicon.glyphicon-edit
+              .small-block
+                span.small-block.note.note-editable [data={name: "note",
+                  url: "/character_events/signup/#{ce.id}",
+                  resource: "character_event", type: "text",
+                  source: enum_to_editable_hash(CharacterEvent.statuses).to_json,
+                  value: ce.note}] = ce.note
+                span.icon
+                  span.glyphicon.glyphicon-edit
+            - else
+                .small-block class=ce.signup_css = ce.status
+                .small-block.note = ce.note
+            - if can? :rotation, ce
+              .small-block
+                span.name.editable [class=ce.rotation data={name: "rotation",
+                  url: "/character_events/rotation/#{ce.id}",
+                  resource: "character_event", type: "select",
+                  source: enum_to_editable_hash(CharacterEvent.rotations).to_json,
+                  value: ce.rotation}] = ce.rotation.humanize
+                span.icon
+                  span.glyphicon.glyphicon-edit
+            - else
+              span class=ce.rotation = ce.rotation.humanize

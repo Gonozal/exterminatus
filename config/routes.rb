@@ -26,8 +26,10 @@ Rails.application.routes.draw do
   resources :computed_events, path: 'signups'
   resources :raid_progressions
   resources :raid_preferences
+  resources :roster_rotations
 
-  put '/character_events/:c_id/:e_id', to: 'character_events#update'
+  put '/character_events/signup/:id', to: 'character_events#update'
+  put '/character_events/rotation/:id', to: 'character_events#rotation'
   resources :character_events, only: [:index]
 
   resources :event_statuses, only: [:index], path: "signup_status"
