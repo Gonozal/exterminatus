@@ -39,7 +39,6 @@ class EventStatus
         signup_hash[c.team_id][:status][ce.status][ce.computed_event_id]["Total"] << c.name
       end
     end
-    puts signup_hash.to_yaml
     signup_hash
   end
 end
