@@ -27,7 +27,8 @@ h3 Event Status
         - event_hash[:status].each do |status, status_hash|
           tr class=[status.downcase]
             td = status
-            - status_hash.each do |event_id, event_hash|
+            - (@last_events + @next_events).each do |event|
+              - event_hash = status_hash[event.id]
               - event_hash.each do |role, characters|
                 td
                   span title=characters.map{|c| h c}.join("<br/>")
