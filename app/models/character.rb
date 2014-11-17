@@ -22,6 +22,7 @@ class Character < ActiveRecord::Base
   scope :with_signups, ->(events) do
     eager_load(character_events: :computed_event).eager_load(:team).
       where("computed_events.id in (?)", events.map(&:id)).
+      where("teams.name <> '' and teams.name NOTNULL").
       order("teams.name, characters.klass, characters.role DESC, characters.name").
       order("computed_events.date")
   end
@@ -46,7 +47,7 @@ class Character < ActiveRecord::Base
       when "role"
         {source: enum_to_editable_hash(Character.roles).to_json}
       when "team_id"
-        {source: @teams.each_with_object({}) {|t, h| h[t.id] = t.name}.to_json}
+        {source: @teams.each_with_object({}) {|t, h| h[t.id] = t.name}.merge({:"0" => ""}).to_json}
       else {}
     end
     {
