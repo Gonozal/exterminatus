@@ -8,6 +8,7 @@
     div class=CharacterEvent.size_class(rotation)
       h4 = rotation.humanize
       - Character.roles.each do |role, i2|
+        - next unless role.present?
         h5 class=rotation = role.humanize
         ul class=CharacterEvent.list_class(rotation)
           - event.character_events.each do |ce|
