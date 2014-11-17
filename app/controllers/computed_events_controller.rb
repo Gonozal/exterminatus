@@ -9,7 +9,6 @@ class ComputedEventsController < ApplicationController
 
   def show
     @event = ComputedEvent.find(params[:id])
-    @bosses = RaidBoss.all
     @characters = Character.for_next_raid @event
   end
 end

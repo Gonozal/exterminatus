@@ -3,10 +3,10 @@ class Character < ActiveRecord::Base
 
   belongs_to :team
   belongs_to :user
-  has_many :character_events
+  has_many :character_events, dependent: :destroy
   has_many :computed_events, through: :character_events
 
-  has_many :boss_preferences
+  has_many :boss_preferences, dependent: :destroy
   has_many :raid_bosses, -> {order 'raid_boss.raid, raid_boss.floor, raid_boss.position'},
            through: :boss_preferences
 
